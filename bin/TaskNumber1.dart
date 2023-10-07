@@ -2,7 +2,7 @@ import 'package:untitled2/untitled2.dart' as untitled2;
 import 'dart:io';
 
 void main() {
-  print("1 - Task1: Является ли строка палиндромом");
+  print("1 - Task1: Является ли строка палиндромом");//po
 
   void Task1() {
     print("Введите слово");
