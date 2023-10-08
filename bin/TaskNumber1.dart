@@ -2,7 +2,7 @@ import 'package:untitled2/untitled2.dart' as untitled2;
 import 'dart:io';
 
 void main() {
-  print("1 - Task1: Является ли строка палиндромом");//po
+  print("1 - Task1: Является ли строка палиндромом"); //po
 
   void Task1() {
     print("Введите слово");
@@ -101,10 +101,9 @@ void main() {
 }
 
 bool checkOnPalindrome(String word) {
-  // чек на палиндром
   String wordStayLowCase = word.toLowerCase().trim();
   int lengthOfWord = wordStayLowCase.length;
-  if (wordStayLowCase.isNotEmpty || wordStayLowCase == '') {
+  if (wordStayLowCase.isNotEmpty) {
     print("Вы ввели пустоту");
     return false;
   }
@@ -118,7 +117,7 @@ bool checkOnPalindrome(String word) {
 }
 
 int getPrintNumbers(int number) {
-  //простые числа до числа N
+  //количество простых числа до числа N
   int count = 0;
 
   for (int i = 2; i <= number; i++) {
@@ -131,7 +130,7 @@ int getPrintNumbers(int number) {
 }
 
 bool findDividerToNumber(int number) {
-  // Проверка на отсутсвие  делителей у числа
+  // Проверка на отсутсвие  делителей у числа number
 
   for (int i = 2; i <= number; i++) {
     if ((number % i) == 0) {
@@ -144,8 +143,10 @@ bool findDividerToNumber(int number) {
 String? findFirstUniqueCharacter(String str) {
   //Поиск первого уникального  символа в строке
   for (int i = 0; i < str.length; i++) {
-    // Проверяем, повторяется ли символ в оставшейся части строки
-    if (str.indexOf(str[i]) == str.lastIndexOf(str[i])) {
+    // Проверяем, повторяется ли символ в оставшейся части строки penis
+    int a = str.indexOf(str[i]);
+    int b = str.lastIndexOf(str[i]);
+    if (a == b) {
       return str[i]; // Возвращаем первый неповторяющийся символ
     }
   }
@@ -156,10 +157,10 @@ String? findFirstUniqueCharacter(String str) {
 int getWorkDaysInMonth() {
   //Количество рабочих дней в текущем месяце
   DateTime today = DateTime.now();
-  int numDays = DateTime(today.year, DateTime.october + 1, 0).day;
+  int numDays = DateTime(today.year, today.month + 1, 0).day;
   int numWorkingDays = 0;
-  for (int day = 1; day <= numDays; day++) {
-    DateTime dateTime = DateTime(today.year, DateTime.october, day);
+  for (int day = today.day; day <= numDays; day++) {
+    DateTime dateTime = DateTime(today.year, today.month, day);
     if (dateTime.weekday != DateTime.saturday &&
         dateTime.weekday != DateTime.sunday) {
       numWorkingDays++;
@@ -176,42 +177,35 @@ bool checkCardOnValidaty(
   if (!checkNumberOfCard(numberOfCard) ||
       !checkCVV(CVV) ||
       !checkDate(date) ||
-      !checkName(name) ||
-      !checkSurname(surname)) {
+      !checkName(name, surname)) {
     return false;
   }
+
   return true;
 }
 
 bool checkNumberOfCard(String numberOfCard) {
-  numberOfCard.trim();
-  return numberOfCard.length == 16 &&
-      int.tryParse(numberOfCard) != null &&
-      numberOfCard[0] != '0' &&
-      numberOfCard != '';
+  String numberTrimed = numberOfCard.trim();
+  return numberTrimed.length == 16 &&
+      int.tryParse(numberTrimed) != null &&
+      numberTrimed[0] != '0';
 }
 
 bool checkCVV(String CVV) {
-  CVV.trim();
-  return CVV.length == 3 && int.tryParse(CVV) != null && CVV != '';
+  String cvvTrimed = CVV.trim();
+  return cvvTrimed.length == 3 && int.tryParse(cvvTrimed) != null;
 }
 
 bool checkDate(String date) {
-  date.trim();
-  RegExp regularExpression = RegExp(r'^\d{2}/\d{2}');
-  return regularExpression.hasMatch(date) && date != '';
+  String dateTrim = date.trim();
+  RegExp regularExpression = RegExp(r"^(0?[1-9]|1[0-2])\/\d{2}$");
+  return regularExpression.hasMatch(dateTrim);
 }
 
-bool checkName(String name) {
-  name.trim();
-  RegExp containerString = RegExp(r'^\d');
-  return name.isNotEmpty && containerString.hasMatch(name) && name != '';
-}
-
-bool checkSurname(String surname) {
-  surname.trim();
-  RegExp containerOfString = RegExp(r'^/d');
-  return surname.isNotEmpty &&
-      containerOfString.hasMatch(surname) &&
-      surname != '';
+bool checkName(String name, String surname) {
+  String nameTrimed = name.trim();
+  RegExp containerString = RegExp(r"^[A-Z]+$");
+  String surnameTrimed = surname.trim();
+  return containerString.hasMatch(surnameTrimed) &&
+      containerString.hasMatch(nameTrimed);
 }
